@@ -37,26 +37,14 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 		_ , err := session(w , r)
 
-		//未授权的页面显示
-		publicTmplFiles := []string{
-			"templates/layout.html",
-			"templates/public.navbar.html",
-			"templates/index.html",
-		}
-		//授权的页面显示
-		privateTmplFiles := []string{
-			"templates/layout.html",
-			"templates/private.navbar.html",
-			"templates/index.html",
-		}
-
 		//Must在解析文件出现错误的时候，会调用panic方法
 		if err != nil {
-			templates = template.Must(template.ParseFiles(privateTmplFiles ...))
+			generateHTML(w, threads, "layout", "public.navbar", "index")
 		}else{
-			templates = template.Must(template.ParseFiles(publicTmplFiles ...))
+			generateHTML(w, threads, "layout", "public.navbar", "index")
 		}
 
+		//类似于PHP中的$this->render()方法
 		templates.ExecuteTemplate(w , "layout" , threads)
 	}
 
