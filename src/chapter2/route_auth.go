@@ -1,6 +1,7 @@
 package main
 
 import "net/http"
+import "chapter2/data"
 
 func authenticate(w http.ResponseWriter , r *http.Request)  {
 
@@ -11,7 +12,10 @@ func authenticate(w http.ResponseWriter , r *http.Request)  {
 	//如果用户输入的密码和数据库里面一致
 	if user.Password == data.Encrypt(r.PostFormValue("password")) {
 		//创建session
-		session := user.CreateSession()
+		session , err := user.CreateSession()
+		if err != nil {
+			error.Error(err)
+		}
 		//创建cookie
 		cookie := http.Cookie{
 			Name:	"_cookie",

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"chapter2/data"
 	"html/template"
 	"net/http"
 )

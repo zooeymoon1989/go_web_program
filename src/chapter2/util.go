@@ -1,6 +1,7 @@
 package main
 
 import (
+	"chapter2/data"
 	"errors"
 	"fmt"
 	"html/template"
