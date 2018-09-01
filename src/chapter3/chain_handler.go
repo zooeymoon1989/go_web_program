@@ -21,10 +21,23 @@ func log(h http.HandlerFunc)  (http.HandlerFunc){
 	}
 }
 
+func protectChain(h http.HandlerFunc) (http.HandlerFunc) {
+
+	return func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("hello world!")
+		h(w , r)
+	}
+
+}
+
+
 func main() {
+
+
+
 	server := http.Server{
 		Addr: "127.0.0.1:7775",
 	}
-	http.HandleFunc("/hello" , log(chainHello))
+	http.HandleFunc("/hello" , protectChain(log(chainHello)))
 	server.ListenAndServe()
 }
