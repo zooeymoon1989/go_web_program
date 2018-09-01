@@ -32,6 +32,7 @@ func main() {
 
 	hello := ThreeChainHandler{}
 	http.Handle("/hello",protect(threeChainLog(hello)))
+	http.Handle("/three",threeChainLog(hello))
 	http.Handle("/test" , protect(hello))
 	http.Handle("/normal" , hello)
 	server.ListenAndServe()
