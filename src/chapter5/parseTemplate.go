@@ -8,8 +8,7 @@ import (
 
 func parseHtml(w http.ResponseWriter , r *http.Request)  {
 	
-	t , err := template.ParseFiles("src/chapter5/tmpl.html")
-
+	t , err := template.ParseFiles("src/chapter5/templates/tmpl.html"  , "src/chapter5/templates/t2.html")
 
 	if err != nil{
 		fmt.Println(err)
