@@ -7,38 +7,23 @@ import (
 	"time"
 )
 
-func formatDate(time time.Time)  string{
+func formatedDate(time time.Time)  string{
 	layout := "2018-09-17"
 	return time.Format(layout)
 }
 
 
 func processF(w http.ResponseWriter, r *http.Request) {
-	funcMap := template.FuncMap { "fdate": formatDate }
-	t := template.New("src/chapter5/templates/functions.html").Funcs(funcMap)
-	t , err := template.ParseFiles("src/chapter5/templates/functions.html" )
+	tFuncMap := template.FuncMap { "fdate": formatedDate }
+	t , err := template.New("src/chapter5/templates/functions.html").Funcs(tFuncMap).ParseFiles("src/chapter5/templates/functions.html")
 
-	if err != nil{
-		fmt.Println(err)
-		return
-	}
-	t.Execute(w, time.Now())
-}
-
-func processFunc(w http.ResponseWriter , r *http.Request)  {
-	funcMap := template.FuncMap{
-		"fdate" : formatDate,
-	}
-
-	t := template.New("src/chapter5/templates/functions.html").Funcs(funcMap)
-	t , err := template.ParseFiles("src/chapter5/templates/functions.html" )
-
-	if err != nil{
+	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	t.Execute(w, time.Now())
+	fmt.Println(t.Name())
+	t.ExecuteTemplate(w , "src/chapter5/templates/functions.html" ,time.Now())
 }
 
 func main() {
