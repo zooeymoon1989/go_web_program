@@ -14,16 +14,18 @@ func formatedDate(time time.Time)  string{
 
 
 func processF(w http.ResponseWriter, r *http.Request) {
-	tFuncMap := template.FuncMap { "fdate": formatedDate }
-	t , err := template.New("src/chapter5/templates/functions.html").Funcs(tFuncMap).ParseFiles("src/chapter5/templates/functions.html")
+	tFuncMap := template.FuncMap {
+		"fdate": formatedDate ,
+	}
+	t , err :=  template.New("funcs").Funcs(tFuncMap).ParseFiles("src/chapter5/templates/functions.html")
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	fmt.Println(t.Name())
-	t.ExecuteTemplate(w , "src/chapter5/templates/functions.html" ,time.Now())
+	fmt.Println(r.Header["Connection"])
+	t.Execute(w , time.Now())
 }
 
 func main() {
