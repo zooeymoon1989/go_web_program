@@ -10,16 +10,15 @@ import (
 type PostSqlx struct {
 	Id int
 	Content string
-	AuthorName string `db: author`
+	Author string
 }
 
 var DbSqlx *sqlx.DB
-var Row *sqlx.Row
 
 
 func init()  {
 	var err error
-	DbSqlx , err = sqlx.Open("mysql" , "root:@/gwp")
+	DbSqlx , err = sqlx.Open("mysql" , "root:2863186@/gwp")
 	if err != nil {
 		panic(err)
 	}
@@ -27,41 +26,20 @@ func init()  {
 }
 
 func GetPostSqlx(id int) (post PostSqlx , err error) {
-	Row = DbSqlx.QueryRowx("SELECT id , content , author FROM posts WHERE id = ?" , id )
-	//if err != nil {
-	//	fmt.Println(err)
-	//	return
-	//}
-
-	aa , _ := Row.SliceScan()
-
-
-	i := 0
-
-	for i < len(aa) {
-
-		fmt.Println(aa[i])
-		i ++
-
-	}
-
-
+	err = DbSqlx.QueryRowx("SELECT id , content , author FROM posts WHERE id = ?" , id ).StructScan(&post)//.Scan(&post.Id , &post.Content , &post.AuthorName)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-
 	defer DbSqlx.Close()
 
 	return
-	//fmt.Println(rows.Err())
-	//err = DbSqlx.Get(&post , "SELECT id , content , author FROM posts WHERE id = ?" , post.Id)
 
 }
 
 func (post PostSqlx)Create() (err error)  {
-	result := DbSqlx.QueryRowx("INSERT INTO posts (content , author) VALUES ( ? , ? )" , post.Content , post.AuthorName)
+	result := DbSqlx.QueryRowx("INSERT INTO posts (content , author) VALUES ( ? , ? )" , post.Content , post.Author)
 	if err != nil {
 
 		fmt.Println(err)
@@ -73,8 +51,10 @@ func (post PostSqlx)Create() (err error)  {
 
 func main() {
 
-	GetPostSqlx(22)
+	post := PostSqlx{}
 
+	post , _ = GetPostSqlx(1)
+	fmt.Println(post)
 	//if err != nil {
 	//	fmt.Println(err)
 	//}
