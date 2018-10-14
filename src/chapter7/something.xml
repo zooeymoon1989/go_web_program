@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<post id="123">
+	<content>foo</content>
+	<author id="456">bar</author>
+</post>

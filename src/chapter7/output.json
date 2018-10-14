@@ -1,0 +1,20 @@
+{
+	"id": 1,
+	"content": "foo bar",
+	"author": {
+		"id": 2,
+		"name": "SomeName2"
+	},
+	"comments": [
+		{
+			"id": 3,
+			"content": "some 3",
+			"author": "haha"
+		},
+		{
+			"id": 4,
+			"content": "some 4",
+			"author": "haha 4"
+		}
+	]
+}
