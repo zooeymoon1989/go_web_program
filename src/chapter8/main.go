@@ -11,6 +11,12 @@ import (
 	"strconv"
 )
 
+type Post struct {
+	Id int `json:"id"`
+	Content string `json:"content"`
+	Author string `json:"author"`
+}
+
 type PostJson struct {
 	Id int `json:"id"`
 	Content string `json:"content"`

@@ -2,8 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 	"time"
 )
@@ -50,24 +52,42 @@ func TestParallel_3(t *testing.T)  {
 	time.Sleep( 3 * time.Second)
 }
 
+var mux *http.ServeMux
+var writer *httptest.ResponseRecorder
+
+func TestMain(m *testing.M)  {  //这个函数是用来解决一些服用代码
+	setUp()
+	code := m.Run()
+	os.Exit(code)
+}
+
+func setUp()  {
+	mux = http.NewServeMux()
+	mux.HandleFunc("/post/", handleRequest)
+	writer = httptest.NewRecorder()
+}
+
+
 func TestHandleGet(t *testing.T)  {
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("/post/", handleRequest)
+	request, _ := http.NewRequest("GET", "/post/1", nil)  //创建请求到你想要测试的handler
+	mux.ServeHTTP(writer, request)  //发送请求到tested handler
 
-	writer := httptest.NewRecorder()   //创建一个ResponseRecorder结构体，这个结构体用来检查保存的返回
-	request, _ := http.NewRequest("GET", "/post/1", nil)
-	mux.ServeHTTP(writer, request)
+	//json := strings.NewReader(`{"content":"Updated post","author":"Sau Sheong"}`)
+	//request , _ := http.NewRequest("PUT", "/post/1", json)
+	//mux.ServeHTTP(writer , request)
 
 	if writer.Code != 200 {
+		fmt.Println(writer.Body)
 		t.Errorf("Response code is %v", writer.Code)
+
 	}
 
 
 	var post PostJson
 	json.Unmarshal(writer.Body.Bytes(), &post)
 	if post.Id != 1 {
-		t.Error("Cannot retrieve JSON post")
+		t.Error("id is not correct")
 	}
 
 

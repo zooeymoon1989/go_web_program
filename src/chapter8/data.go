@@ -9,7 +9,7 @@ var Db *sql.DB
 
 func init()  {
 	var err error
-	Db , err = sql.Open("mysql" , "root:@/gwp")
+	Db , err = sql.Open("mysql" , "root:2863186@/gwp")
 	if err != nil {
 		panic(err)
 	}
@@ -17,8 +17,7 @@ func init()  {
 }
 
 
-func retrieve(id int) (post PostJson, err error) {
-	post = PostJson{}
+func retrieve(id int) (post Post, err error) {
 	err = Db.QueryRow("select id, content, author from posts where id = ?", id).Scan(&post.Id, &post.Content, &post.Author)
 	return
 }
