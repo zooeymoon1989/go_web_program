@@ -14,6 +14,7 @@ type IA interface {
 	something()
 }
 
+
 func (a *A)something()  {
 	fmt.Println("foo")
 }
@@ -40,13 +41,13 @@ func printer(c chan string)  {
 	}
 }
 
-func main() {
-	var c = make(chan string)
-	go pinger(c)
-	go printer(c)
+func something()  {
 
-	var input string
-	fmt.Scanln(&input)
+}
+
+func main() {
+
+
 
 
 }

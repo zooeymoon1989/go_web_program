@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -62,8 +63,14 @@ func TestMain(m *testing.M)  {  //这个函数是用来解决一些服用代码
 }
 
 func setUp()  {
+	var err error
+	db , err :=sql.Open("mysql" , "root:@/gwp")
+	if err != nil {
+		panic(err)
+	}
+
 	mux = http.NewServeMux()
-	mux.HandleFunc("/post/", handleRequest)
+	mux.HandleFunc("/post/", handleRequest(&Post{Db:db}))
 	writer = httptest.NewRecorder()
 }
 
