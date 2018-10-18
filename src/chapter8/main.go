@@ -33,15 +33,15 @@ func (post *Post) fetch(id int) (err error) {
 	return
 }
 
-func (Post) create() (err error) {
+func (post *Post) create() (err error) {
 	panic("implement me")
 }
 
-func (Post) update() (err error) {
+func (post *Post) update() (err error) {
 	panic("implement me")
 }
 
-func (Post) delete() (err error) {
+func (post *Post) delete() (err error) {
 	panic("implement me")
 }
 
@@ -126,7 +126,7 @@ func handleGet(w http.ResponseWriter , r *http.Request , t Text) (err error) {
 		return
 	}
 
-	output , err := json.MarshalIndent(&post , "" , "\t")
+	output , err := json.MarshalIndent(&t , "" , "\t")
 
 	if err != nil {
 		return
@@ -138,6 +138,8 @@ func handleGet(w http.ResponseWriter , r *http.Request , t Text) (err error) {
 }
 
 func main()  {
+
+
 	var err error
 	db , err :=sql.Open("mysql" , "root:@/gwp")
 	if err != nil {
@@ -147,7 +149,7 @@ func main()  {
 	server := http.Server{
 		Addr:":8088",
 	}
-	
+
 	http.HandleFunc("/post/" , handleRequest(&Post{Db:db}))
 	server.ListenAndServe()
 }

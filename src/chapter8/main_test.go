@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
@@ -65,6 +66,7 @@ func TestMain(m *testing.M)  {  //这个函数是用来解决一些服用代码
 func setUp()  {
 	var err error
 	db , err :=sql.Open("mysql" , "root:@/gwp")
+	//db , err :=sql.Open("mysql" , "root:@/gwp")
 	if err != nil {
 		panic(err)
 	}
