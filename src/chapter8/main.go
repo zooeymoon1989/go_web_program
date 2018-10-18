@@ -115,18 +115,18 @@ func handleRequest(t Text)  http.HandlerFunc{
 
 }
 
-func handleGet(w http.ResponseWriter , r *http.Request , t Text) (err error) {
+func handleGet(w http.ResponseWriter , r *http.Request , post Text) (err error) {
 	id , err := strconv.Atoi(path.Base(r.URL.Path))
 	if err != nil {
 		return
 	}
 
-	err = t.fetch(id)
+	err = post.fetch(id)
 	if err != nil {
 		return
 	}
 
-	output , err := json.MarshalIndent(&post , "" , "\t")
+	output , err := json.MarshalIndent(post , "" , "\t")
 
 	if err != nil {
 		return

@@ -1,9 +1,12 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
+	. "gopkg.in/check.v1"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -72,6 +75,24 @@ func setUp()  {
 	mux = http.NewServeMux()
 	mux.HandleFunc("/post/", handleRequest(&Post{Db:db}))
 	writer = httptest.NewRecorder()
+}
+
+type PostTestSuite struct {
+
+}
+
+func init()  {
+	Suite(&PostTestSuite{})
+}
+
+func Test(t *testing.T)  {
+	TestingT(t)
+}
+
+func (s *PostTestSuite)TestHelloWorld(c *C) {
+	c.Assert(42 , Equals , "42")
+	c.Assert(io.ErrClosedPipe, ErrorMatches, "io: .*on closed pipe")
+	c.Check(42, Equals, 42)
 }
 
 

@@ -9,7 +9,7 @@ var Db *sql.DB
 
 func init()  {
 	var err error
-	Db , err = sql.Open("mysql" , "root:@/gwp")
+	Db , err = sql.Open("mysql" , "root:2863186@/gwp")
 		if err != nil {
 			panic(err)
 	}
