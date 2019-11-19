@@ -17,7 +17,7 @@ func init()  {
 }
 
 
-func retrieve(id int) (post Post, err error) {
+func Retrieve(id int) (post Post, err error) {
 	err = Db.QueryRow("select id, content, author from posts where id = ?", id).Scan(&post.Id, &post.Content, &post.Author)
 	return
 }
