@@ -22,7 +22,7 @@ func mergeArray(left []int, right []int) []int {
 		if done1 {
 			merged[k] = right[j]
 			j++
-			if len(right)== j {
+			if len(right) == j {
 				done2 = true
 			}
 			k++
@@ -65,14 +65,14 @@ func mergeSort(array []int) []int {
 		return array
 	}
 
-	mid := int(math.Floor(float64(len(array)/2)))
+	mid := int(math.Floor(float64(len(array) / 2)))
 
 	left := append(array[0:mid])
 	right := append(array[mid:])
 	mergedLeft := mergeSort(left)
 	mergedRight := mergeSort(right)
 
-	return mergeArray(mergedLeft , mergedRight)
+	return mergeArray(mergedLeft, mergedRight)
 
 }
 
@@ -81,6 +81,5 @@ func main() {
 	var Array = []int{4, 65, 46, 24, 7, 54, 13, 78, 45, 65, 33, 66, 24}
 	fmt.Println(Array)
 	fmt.Println(mergeSort(Array))
-
 
 }

@@ -19,15 +19,6 @@ func main() {
 // 整理返回的数据
 func quickSort(array []int) []int {
 
-	if len(array) == 2 {
-		if array[0] > array[1]{
-			tmp := array[0]
-			array[0] = array[1]
-			array[1] = tmp
-			return array
-		}
-	}
-
 	if len(array) <= 1 {
 		return array
 	}
@@ -36,10 +27,10 @@ func quickSort(array []int) []int {
 	var left []int
 	var right []int
 
-	for i:= 0 ; i < len(array)-1; i++ {
+	for i := 0; i < len(array)-1; i++ {
 		if array[i] <= pivot {
-			left = append(left , array[i])
-		}else{
+			left = append(left, array[i])
+		} else {
 			right = append(right, array[i])
 		}
 	}
@@ -47,8 +38,8 @@ func quickSort(array []int) []int {
 	afterQuickSortLeft := quickSort(left)
 	afterQuickSortRight := quickSort(right)
 
-	foo := append(afterQuickSortLeft , pivot)
-	foo = append(foo , afterQuickSortRight...)
+	foo := append(afterQuickSortLeft, pivot)
+	foo = append(foo, afterQuickSortRight...)
 
 	return foo
 
